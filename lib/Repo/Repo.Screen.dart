@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mvp/base/ScreenState.dart';
-import 'package:flutter_mvp/list_user/ListUserServices.dart';
-import 'package:flutter_mvp/repo/RepoInterface.dart';
-import 'package:flutter_mvp/repo/RepoPresenter.dart';
-import 'package:flutter_mvp/repo/RepoServices.dart';
+import 'package:flutter_mvp/Base/ScreenState.dart';
+import 'package:flutter_mvp/ListUser/ListUser.Service.dart';
+import 'package:flutter_mvp/Repo/Repo.Interface.dart';
+import 'package:flutter_mvp/Repo/Repo.Presenter.dart';
+import 'package:flutter_mvp/Repo/Repo.Service.dart';
 
 class Repo extends StatelessWidget {
   final User currentUser;
@@ -38,7 +38,8 @@ class RepoScreen extends StatefulWidget {
   State createState() => new RepoScreenState(currentUser: currentUser);
 }
 
-class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements RepoInterface {
+class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter>
+    implements RepoInterface {
   final User currentUser;
 
   RepoScreenState({this.currentUser});
@@ -104,7 +105,8 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                     decoration: new BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: new BorderRadius.circular(20.0),
-                      image: new DecorationImage(image: new NetworkImage(currentUser.avatarUrl)),
+                      image: new DecorationImage(
+                          image: new NetworkImage(currentUser.avatarUrl)),
                     ),
                     width: 30.0,
                     height: 30.0,
@@ -120,7 +122,9 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),
-              decoration: new BoxDecoration(color: Colors.grey[300], borderRadius: new BorderRadius.circular(20.0)),
+              decoration: new BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: new BorderRadius.circular(20.0)),
               width: 150.0,
               height: 40.0,
               margin: new EdgeInsets.only(top: 20.0, bottom: 10.0),
@@ -144,8 +148,9 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                                     flex: 2,
                                   ),
                                   new Expanded(
-                                    child:
-                                        new Text(data[index].id != null ? data[index].id.toString() : 'no information'),
+                                    child: new Text(data[index].id != null
+                                        ? data[index].id.toString()
+                                        : 'no information'),
                                     flex: 5,
                                   )
                                 ],
@@ -160,8 +165,9 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                                     flex: 2,
                                   ),
                                   new Expanded(
-                                    child: new Text(
-                                        data[index].name != null ? data[index].name.toString() : 'no information'),
+                                    child: new Text(data[index].name != null
+                                        ? data[index].name.toString()
+                                        : 'no information'),
                                     flex: 5,
                                   )
                                 ],
@@ -177,7 +183,9 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                                   ),
                                   new Expanded(
                                     child: new Text(
-                                        data[index].description != null ? data[index].description : 'no information'),
+                                        data[index].description != null
+                                            ? data[index].description
+                                            : 'no information'),
                                     flex: 5,
                                   )
                                 ],
@@ -209,8 +217,9 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                                     flex: 2,
                                   ),
                                   new Expanded(
-                                    child: new Text(
-                                        data[index].language != null ? data[index].language : 'no information'),
+                                    child: new Text(data[index].language != null
+                                        ? data[index].language
+                                        : 'no information'),
                                     flex: 5,
                                   )
                                 ],
@@ -220,7 +229,8 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
                           padding: new EdgeInsets.all(10.0),
                         ),
                       ),
-                      margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                      margin: new EdgeInsets.only(
+                          left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
                     );
                   },
                   padding: new EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -234,12 +244,18 @@ class RepoScreenState extends ScreenState<RepoScreen, RepoPresenter> implements 
       } else {
         return new Center(
             child: new Text('${currentUser.login} has no repository',
-                style: new TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 18.0)));
+                style: new TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0)));
       }
     } else {
       return new Center(
           child: new Text('Error...',
-              style: new TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 18.0)));
+              style: new TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0)));
     }
   }
 }

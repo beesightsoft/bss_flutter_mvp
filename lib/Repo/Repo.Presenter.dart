@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_mvp/base/Presenter.dart';
-import 'package:flutter_mvp/repo/RepoInterface.dart';
-import 'package:flutter_mvp/repo/RepoServices.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_mvp/Base/Presenter.dart';
+import 'package:flutter_mvp/Repo/Repo.Interface.dart';
+import 'package:flutter_mvp/Repo/Repo.Service.dart';
 
 class RepoPresenter extends Presenter<RepoInterface, RepoServices> {
   RepoPresenter(RepoInterface view) : super(view, new RepoServices());
@@ -15,7 +14,8 @@ class RepoPresenter extends Presenter<RepoInterface, RepoServices> {
       if (statusCode != 200) {
         view.onLoadDataFail();
       } else {
-        final List result = responseJson.map((item) => Repository.fromJson(item)).toList();
+        final List result =
+            responseJson.map((item) => Repository.fromJson(item)).toList();
         view.onLoadDataSuccess(result);
       }
     });

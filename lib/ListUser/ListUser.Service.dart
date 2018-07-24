@@ -17,6 +17,10 @@ class User {
   User({this.login, this.id, this.avatarUrl, this.score});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return new User(login: json['login'], id: json['id'], avatarUrl: json['avatar_url'], score: json['score']);
+    return new User(
+        login: json['login'],
+        id: json['id'],
+        avatarUrl: json['avatar_url'],
+        score: json['score']);
   }
 }

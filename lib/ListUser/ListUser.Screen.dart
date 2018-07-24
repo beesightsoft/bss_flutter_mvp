@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_mvp/base/ScreenState.dart';
-import 'package:flutter_mvp/list_user/ListUserInterface.dart';
-import 'package:flutter_mvp/list_user/ListUserPresenter.dart';
-import 'package:flutter_mvp/list_user/ListUserServices.dart';
-import 'package:flutter_mvp/repo/RepoView.dart';
+import 'package:flutter_mvp/Base/ScreenState.dart';
+import 'package:flutter_mvp/ListUser/ListUser.Interface.dart';
+import 'package:flutter_mvp/ListUser/ListUser.Presenter.dart';
+import 'package:flutter_mvp/ListUser/ListUser.Service.dart';
+import 'package:flutter_mvp/Repo/Repo.Screen.dart';
 
 class ListUser extends StatelessWidget {
   @override
@@ -30,10 +29,11 @@ class ListUserScreen extends StatefulWidget {
   State createState() => new ListUserScreenState();
 }
 
-class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter> implements ListUserInterface {
+class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
+    implements ListUserInterface {
   List<User> data;
   bool isLoading, isSuccess;
-  TextEditingController editingController = new TextEditingController(text: 'duytq');
+  TextEditingController editingController = new TextEditingController();
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
     presenter = new ListUserPresenter(this);
     isLoading = true;
     isSuccess = true;
-    presenter.loadData(editingController.text != '' ? editingController.text : 'duytq');
+    presenter.loadData(editingController.text);
   }
 
   @override
@@ -65,12 +65,15 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
       isLoading = true;
       isSuccess = true;
     });
-    presenter.loadData(editingController.text != '' ? editingController.text : 'duytq');
+    presenter.loadData(editingController.text);
     return null;
   }
 
   onItemPress(int index) {
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => new Repo(currentUser: data[index])));
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => new Repo(currentUser: data[index])));
   }
 
   onSearchPress() {
@@ -79,7 +82,7 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
       isLoading = true;
       isSuccess = true;
     });
-    presenter.loadData(editingController.text != '' ? editingController.text : 'duytq');
+    presenter.loadData(editingController.text);
   }
 
   @override
@@ -96,10 +99,12 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
                   border: new UnderlineInputBorder(),
                   contentPadding: new EdgeInsets.all(5.0),
                   hintStyle: new TextStyle(color: Colors.grey),
-                  suffixIcon: new IconButton(icon: new Icon(Icons.search), onPressed: onSearchPress)),
+                  suffixIcon: new IconButton(
+                      icon: new Icon(Icons.search), onPressed: onSearchPress)),
               controller: editingController,
             ),
-            margin: new EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 10.0),
+            margin: new EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 20.0, bottom: 10.0),
           ),
           new Expanded(
             child: new RefreshIndicator(
@@ -117,10 +122,16 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
                             new Container(
                               width: 40.0,
                               height: 40.0,
-                              margin: new EdgeInsets.only(left: 10.0, right: 30.0, top: 10.0, bottom: 10.0),
+                              margin: new EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 30.0,
+                                  top: 10.0,
+                                  bottom: 10.0),
                               decoration: new BoxDecoration(
                                   image: new DecorationImage(
-                                      image: new NetworkImage(data[index].avatarUrl), fit: BoxFit.cover),
+                                      image: new NetworkImage(
+                                          data[index].avatarUrl),
+                                      fit: BoxFit.cover),
                                   shape: BoxShape.circle),
                             ),
                             new Flexible(
@@ -131,7 +142,8 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
                                     new Expanded(
                                       child: new Text(
                                         'Name:',
-                                        style: new TextStyle(color: Colors.amber),
+                                        style:
+                                            new TextStyle(color: Colors.amber),
                                       ),
                                       flex: 1,
                                     ),
@@ -149,7 +161,8 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
                                     new Expanded(
                                       child: new Text(
                                         'ID:',
-                                        style: new TextStyle(color: Colors.amber),
+                                        style:
+                                            new TextStyle(color: Colors.amber),
                                       ),
                                       flex: 1,
                                     ),
@@ -167,7 +180,8 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
                                     new Expanded(
                                       child: new Text(
                                         'Score:',
-                                        style: new TextStyle(color: Colors.amber),
+                                        style:
+                                            new TextStyle(color: Colors.amber),
                                       ),
                                       flex: 1,
                                     ),
@@ -186,7 +200,8 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
                         ),
                       ),
                     ),
-                    margin: new EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                    margin: new EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
                   );
                 },
                 padding: new EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -200,7 +215,10 @@ class ListUserScreenState extends ScreenState<ListUserScreen, ListUserPresenter>
     } else {
       return new Center(
           child: new Text('Error...',
-              style: new TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 18.0)));
+              style: new TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0)));
     }
   }
 }
